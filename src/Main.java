@@ -1,8 +1,10 @@
 import java.util.*;
 
 public class Main {
+
     public static void main(String ... args) throws Exception {
         while (true){
+
             Scanner scanner = new Scanner(System.in);
             System.out.println("Введите выражение в формате: a + b, a - b, a * b, a / b.");
             String equation = scanner.nextLine();
@@ -22,17 +24,10 @@ public class Main {
                 int a = Integer.parseInt(expression[0]);
                 int b = Integer.parseInt(expression[2]);
                 char operator = expression[1].toCharArray()[0];
-                if (a < 1 || b < 1 || a > 10 || b > 10){
-                    scanner.close();
-                    throw new Exception("т.к. калькулятор принимет на вход числа от 1 до 10 включительно");
-                }
+                System.out.println(Calculator.calculated(a, b, operator));
             } else if (isRomanDigit(expression[0]) & isRomanDigit(expression[2])){
                 int a = Converter.romanToArabic(expression[0]);
                 int b = Converter.romanToArabic(expression[2]);
-                if (a < 1 || b < 1 || a > 10 || b > 10){
-                    scanner.close();
-                    throw new Exception("т.к. калькулятор принимет на вход числа от 1 до 10 включительно");
-                }
                 char operator = expression[1].toCharArray()[0];
                 int result = (Calculator.calculated(a, b, operator));
                 if (result < 1){
@@ -41,6 +36,12 @@ public class Main {
                 }
                 String result1 = (Converter.arabicToRoman(Calculator.calculated(a, b, operator)));
                 System.out.println(result1);
+            } else if ((!expression[0].matches("\\d+") | !expression[2].matches("\\d+")) & (!isRomanDigit(expression[0]) & !isRomanDigit(expression[2]))){ //
+                scanner.close();
+                throw new Exception("Используются только ЦЕЛЫЕ числа от 1 до 10");
+            /*} else if (((Double.parseDouble(expression[0]) < 1.0) | (Double.parseDouble(expression[0]) > 10.0) | (Double.parseDouble(expression[2]) < 1.0) | (Double.parseDouble(expression[2]) > 10.0))) {
+            *    scanner.close();
+            *    throw new Exception("Используются только числа от 1 до 10"); */
             } else{
                 scanner.close();
                 throw new Exception("т.к. используются одновременно разные системы счисления");
@@ -48,7 +49,7 @@ public class Main {
         }
     }
 
-    public static boolean isArabianDigit(String chunk){
+    static boolean isArabianDigit(String chunk){
         if (!chunk.matches("\\d+")){
             return false;
         }
@@ -56,11 +57,11 @@ public class Main {
         return value > 0 && value <= 10 ? true : false;
     }
 
-    public static boolean isRomanDigit(String chunk){
+    static boolean isRomanDigit(String chunk){
         return Converter.romanToArabic(chunk) != -1 ? true : false;
     }
 
-    public static boolean isValidIdentifier(char identifier){
+    static boolean isValidIdentifier(char identifier){
         return identifier == '+' ||
                 identifier == '-' ||
                 identifier == '*' ||
