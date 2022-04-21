@@ -24,8 +24,7 @@ public class Main {
                 int a = Integer.parseInt(expression[0]);
                 int b = Integer.parseInt(expression[2]);
                 char operator = expression[1].toCharArray()[0];
-                if (((Double.parseDouble(expression[0]) < 1.0) | (Double.parseDouble(expression[0]) > 10.0)
-                        | (Double.parseDouble(expression[2]) < 1.0) | (Double.parseDouble(expression[2]) > 10.0))) {
+                if (a < 1 | a > 10 | b < 1 | b > 10) {
                     scanner.close();
                     throw new Exception("Используются только числа от 1 до 10");
                 }
