@@ -24,25 +24,34 @@ public class Main {
                 int a = Integer.parseInt(expression[0]);
                 int b = Integer.parseInt(expression[2]);
                 char operator = expression[1].toCharArray()[0];
+                if (((Double.parseDouble(expression[0]) < 1.0) | (Double.parseDouble(expression[0]) > 10.0)
+                        | (Double.parseDouble(expression[2]) < 1.0) | (Double.parseDouble(expression[2]) > 10.0))) {
+                    scanner.close();
+                    throw new Exception("Используются только числа от 1 до 10");
+                }
+
                 System.out.println(Calculator.calculated(a, b, operator));
             } else if (isRomanDigit(expression[0]) & isRomanDigit(expression[2])){
                 int a = Converter.romanToArabic(expression[0]);
                 int b = Converter.romanToArabic(expression[2]);
                 char operator = expression[1].toCharArray()[0];
+                if (a < 1 | a > 10 | b < 1 | b > 10) {
+                    scanner.close();
+                    throw new Exception("Используются только числа от 1 до 10");
+                }
+
                 int result = (Calculator.calculated(a, b, operator));
                 if (result < 1){
                     scanner.close();
                     throw new Exception("т.к. в римской системе нет отрицательных чисел");
                 }
+
                 String result1 = (Converter.arabicToRoman(Calculator.calculated(a, b, operator)));
                 System.out.println(result1);
-            } else if ((!expression[0].matches("\\d+") | !expression[2].matches("\\d+")) & (!isRomanDigit(expression[0]) & !isRomanDigit(expression[2]))){ //
+            } else if (!expression[0].matches(".") | !expression[2].matches(".")){
                 scanner.close();
                 throw new Exception("Используются только ЦЕЛЫЕ числа от 1 до 10");
-            /*} else if (((Double.parseDouble(expression[0]) < 1.0) | (Double.parseDouble(expression[0]) > 10.0) | (Double.parseDouble(expression[2]) < 1.0) | (Double.parseDouble(expression[2]) > 10.0))) {
-            *    scanner.close();
-            *    throw new Exception("Используются только числа от 1 до 10"); */
-            } else{
+            } else {
                 scanner.close();
                 throw new Exception("т.к. используются одновременно разные системы счисления");
             }
