@@ -1,1 +1,1 @@
-# Kata
+# Calculator
